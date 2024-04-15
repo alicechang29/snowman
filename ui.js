@@ -55,15 +55,35 @@ class SnowmanUI {
   guessLetter(letter) {
     console.debug("guessLetter", letter);
 
-    const isCorrect = this.game.guessLetter(letter);
+    const isCorrect = this.game.guessLetter(letter); // returning true or false
     this.updateWord();
     this.updateImage();
+
+    this.endGame();
+  }
+
+  /** End game and display a player's win or loss outcome. */
+
+  endGame() {
+    const gameOutcome = this.game.gameState;
+
+    if (gameOutcome === "WON" || gameOutcome === "LOSE") {
+      const $gameOutcomeDisplay = document.createElement("div");
+
+      $gameOutcomeDisplay.innerHTML = `YOU ${gameOutcome}`;
+
+      const $body = document.querySelector("body");
+
+      $body.append($gameOutcomeDisplay);
+    }
   }
 
   /** Handle clicking a letter button: disable button & handle guess. */
 
   handleGuess(evt) {
     console.debug("handleGuess");
+
+    if (!evt.target.matches("button")) return;
 
     const letter = evt.target.dataset.letter;
     this.guessLetter(letter);
