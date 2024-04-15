@@ -16,9 +16,7 @@ class SnowmanLogic {
   constructor(maxWrong = 5) {
     console.debug("SnowmanLogic", { maxWrong });
 
-    //FIXME: switch property back to previous
-    //this.answer = this.getSecret(); //returned as a string
-    this.answer = "hi";
+    this.answer = this.getSecret(); //returned as a string
     this.guessedLetters = new Set(); //putting guesses into a SET
     this.numWrong = 0;
     this.maxWrong = maxWrong;
@@ -70,12 +68,13 @@ class SnowmanLogic {
     const currGuessedWord = this.getGuessedWord();
 
     // checking for win or loss to end game
+    // TODO: Could simplify this further to separate lose and win conditionals
     if (this.numWrong <= this.maxWrong) {
       if (currGuessedWord === this.answer) {
         this.gameState = "WON";
       }
     } else {
-      this.gameState = "LOSE";
+      this.gameState = "LOST";
     }
 
     return isCorrect;

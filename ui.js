@@ -59,22 +59,16 @@ class SnowmanUI {
     this.updateWord();
     this.updateImage();
 
-    this.endGame();
-  }
-
-  /** End game and display a player's win or loss outcome. */
-
-  endGame() {
     const gameOutcome = this.game.gameState;
 
-    if (gameOutcome === "WON" || gameOutcome === "LOSE") {
+    if (gameOutcome === "WON" || gameOutcome === "LOST") {
       const $gameOutcomeDisplay = document.createElement("div");
 
       $gameOutcomeDisplay.innerHTML = `YOU ${gameOutcome}`;
 
-      const $body = document.querySelector("body");
+      const $announcementArea = document.querySelector("#Snowman-nnouncement-area");
 
-      $body.append($gameOutcomeDisplay);
+      $announcementArea.append($gameOutcomeDisplay);
     }
   }
 
@@ -83,7 +77,7 @@ class SnowmanUI {
   handleGuess(evt) {
     console.debug("handleGuess");
 
-    if (!evt.target.matches("button")) return;
+    if (!evt.target.matches(".letter")) return;
 
     const letter = evt.target.dataset.letter;
     this.guessLetter(letter);
