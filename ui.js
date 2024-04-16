@@ -33,7 +33,7 @@ class SnowmanUI {
     );
 
     this.$keyboard.append(...$letters);
-    this.$keyboard.addEventListener("click", this.handleGuessBound); //this is a diff identity than what we're passing into removeEventListener
+    this.$keyboard.addEventListener("click", this.handleGuessBound);
   }
 
   /** Update guessed word on board. */
@@ -64,12 +64,16 @@ class SnowmanUI {
 
     const gameOutcome = this.game.gameState;
 
+    // TODO: Could make more concise - just not "playing"
+    // And do not need additional div created here since we wrote in HTML
+    // Could also develop the game message further to reveal word
     if (gameOutcome === "WON" || gameOutcome === "LOST") {
       const $gameOutcomeDisplay = document.createElement("div");
 
       $gameOutcomeDisplay.innerHTML = `YOU ${gameOutcome}`;
 
-      const $announcementArea = document.querySelector("#Snowman-announcement-area");
+      const $announcementArea = document.querySelector(
+        "#Snowman-announcement-area");
 
       $announcementArea.append($gameOutcomeDisplay);
 
