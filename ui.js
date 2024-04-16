@@ -58,6 +58,7 @@ class SnowmanUI {
     console.debug("guessLetter", letter);
 
     const isCorrect = this.game.guessLetter(letter); // returning true or false
+
     this.updateWord();
     this.updateImage();
 
@@ -86,10 +87,11 @@ class SnowmanUI {
     if (!evt.target.matches(".letter")) return;
 
     const letter = evt.target.dataset.letter;
+    console.log({ letter });
     this.guessLetter(letter);
 
-    //TODO: placeholder for disabling a specific letter
-    //this.$keyboard.removeEventListener("click", this.handleGuess.bind(this));
+    evt.target.disabled = true;
+
   }
 }
 
