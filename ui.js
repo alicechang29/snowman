@@ -7,6 +7,8 @@ class SnowmanUI {
     this.maxWrong = maxWrong;
     this.game = new SnowmanLogic(maxWrong);
 
+    this.handleGuessBound = this.handleGuess.bind(this); //1 bound copy for event listeners
+
     this.$keyboard = document.querySelector("#Snowman-keyboard");
     this.$word = document.querySelector("#Snowman-word");
     this.$image = document.querySelector("#Snowman-image");
@@ -31,7 +33,7 @@ class SnowmanUI {
     );
 
     this.$keyboard.append(...$letters);
-    this.$keyboard.addEventListener("click", this.handleGuess.bind(this));
+    this.$keyboard.addEventListener("click", this.handleGuessBound); //this is a diff identity than what we're passing into removeEventListener
   }
 
   /** Update guessed word on board. */
@@ -66,11 +68,15 @@ class SnowmanUI {
 
       $gameOutcomeDisplay.innerHTML = `YOU ${gameOutcome}`;
 
-      const $announcementArea = document.querySelector("#Snowman-nnouncement-area");
+      const $announcementArea = document.querySelector("#Snowman-announcement-area");
 
       $announcementArea.append($gameOutcomeDisplay);
+
+      this.$keyboard.removeEventListener("click", this.handleGuessBound);
     }
   }
+
+
 
   /** Handle clicking a letter button: disable button & handle guess. */
 
@@ -81,6 +87,9 @@ class SnowmanUI {
 
     const letter = evt.target.dataset.letter;
     this.guessLetter(letter);
+
+    //TODO: placeholder for disabling a specific letter
+    //this.$keyboard.removeEventListener("click", this.handleGuess.bind(this));
   }
 }
 
